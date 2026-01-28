@@ -1,6 +1,7 @@
 import { prisma } from '../lib/prisma.js';
 
 export async function healthz(req, res) {
+  console.log(process.env.DATABASE_URL)
   try {
     await prisma.$queryRaw`SELECT 1`;
     res.status(200).json({ ok: true });
