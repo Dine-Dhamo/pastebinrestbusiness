@@ -6,6 +6,7 @@ export async function healthz(req, res) {
     await prisma.$queryRaw`SELECT 1`;
     res.status(200).json({ ok: true });
   } catch (err) {
+    console.error('Healthz DB error:', err);
     res.status(500).json({ ok: false });
   }
 }
