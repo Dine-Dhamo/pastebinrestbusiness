@@ -1,15 +1,15 @@
 import escapeHtml from 'escape-html';
-import { prisma } from '../lib/prisma.js';
+import { getPrisma } from '../lib/prisma.js';
 import { now } from '../lib/time.js';
 
 export async function viewPaste(req, res) {
   const { id } = req.params;
   const currentTime = now(req);
-
+  const prisma = getPrisma();
   const paste = await prisma.paste.findUnique({ where: { id } });
   console.log(paste.expiresAt && paste.expiresAt.getTime() <= currentTime,
-  paste.expiresAt , paste.expiresAt.getTime(),currentTime
-     )
+    paste.expiresAt, paste.expiresAt.getTime(), currentTime
+  )
   if (
     !paste ||
     (paste.expiresAt && paste.expiresAt.getTime() <= currentTime) ||

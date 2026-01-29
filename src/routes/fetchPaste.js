@@ -1,10 +1,10 @@
-import { prisma } from '../lib/prisma.js';
+import { getPrisma } from '../lib/prisma.js';
 import { now } from '../lib/time.js';
 
 export async function fetchPaste(req, res) {
   const { id } = req.params;
   const currentTime = now(req); 
-
+const prisma = getPrisma();
   const paste = await prisma.paste.findUnique({ where: { id } });
 
   if (!paste) {

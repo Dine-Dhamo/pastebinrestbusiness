@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
-import { prisma } from '../lib/prisma.js';
+import { getPrisma } from '../lib/prisma.js';
 
 export async function createPaste(req, res) {
   const { content, ttl_seconds, max_views } = req.body;
-  
+  const prisma = getPrisma();
   if (!content || typeof content !== 'string') {
     return res.status(400).json({ error: 'Invalid content' });
   }
