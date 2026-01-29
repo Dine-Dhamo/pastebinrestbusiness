@@ -7,9 +7,6 @@ export async function viewPaste(req, res) {
   const currentTime = now(req);
   const prisma = getPrisma();
   const paste = await prisma.paste.findUnique({ where: { id } });
-  console.log(paste.expiresAt && paste.expiresAt.getTime() <= currentTime,
-    paste.expiresAt, paste.expiresAt.getTime(), currentTime
-  )
   if (
     !paste ||
     (paste.expiresAt && paste.expiresAt.getTime() <= currentTime) ||
